@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=IBM+Plex+Mono&family=Noto+Serif+JP:wght@200&family=Playfair+Display&family=Rubik+Broken+Fax&family=Single+Day&display=swap" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gia is Love</title>
-    <link rel="icon" href="https://media1.tenor.com/m/VSxlAnMklw0AAAAC/anime-hug-for-you.gif" type="image/gif"> 
+    <link rel="icon" href="https://media1.tenor.com/m/VSxlAnMklw0AAAAC/anime-hug-for-you.gif" type="image/gif">
     <style>
         * {
             box-sizing: border-box;
@@ -13,6 +18,7 @@
             padding: 0;
         }
         body {
+            cursor: url('https://cdn.discordapp.com/attachments/1108762577602871346/1190700239171104911/image_2.png?') 5 5, auto;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -20,7 +26,7 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
-            background-image: url('https://media1.tenor.com/m/VSxlAnMklw0AAAAC/anime-hug-for-you.gif');
+            background-image: url('https://cdn.discordapp.com/attachments/1132030146434584656/1190665226593517598/output-onlinegiftools.gif?');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -33,35 +39,35 @@
             left: 0;
             right: 0;
             bottom: 0;
-            backdrop-filter: blur(13px);
-            background-color: rgba(0, 0, 0, 0.041); 
+            background-color: rgba(0, 0, 0, 0.041);
         }
         header {
             text-align: center;
             margin-bottom: 20px;
         }
-        
+
         .love {
             margin-bottom: 10px;
             position: absolute;
             bottom: 0;
+            font-family: 'La Belle Aurore', cursive;
         }
 
-
         .hero-text {
-            font-size: 2.7rem;
-            color: black;
-            font-family: 'Times New Roman', Times, serif;
+            font-size: 3rem;
+            font-family: 'Dancing Script', cursive;
             position: relative; 
-            z-index: 1;
+            z-index: 2;
+            color: black;
         }
 
         .quote {
             font-size: 1rem;
-            margin-top: 10px;
+            font-family: 'La Belle Aurore', cursive;
+            margin-top: 0;
             color: rgb(0, 0, 0);
-            position: relative;
-            z-index: 1;
+            position: center;
+            z-index: 2;
         }
 
         .heart {
@@ -70,8 +76,9 @@
             font-size: 3rem;
             transform: translateY(0);
             animation: fall 3s linear forwards;
-            z-index: 2;
-            pointer-events: none;
+            z-index: 1;
+            cursor: url('https://cdn.discordapp.com/attachments/1108762577602871346/1190700239171104911/image_2.png?') 5 5, auto;
+            color: rgba(0, 0, 0, 0.363);
         }
 
         .click-catcher {
@@ -80,8 +87,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: 10;
-            pointer-events: none; 
+            z-index: 10; 
+            
         }
 
         @keyframes fall {
@@ -89,99 +96,185 @@
                 transform: translateY(105vh);
             }
         }
+        
+
+        #musicButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            margin-left: 10px;
+            z-index: 11;
+            font-size: 30px;
+            border-style: none;
+            background: transparent;
+            cursor: url('https://cdn.discordapp.com/attachments/1108762577602871346/1190700239171104911/image_2.png?') 5 5, auto;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="click-catcher"></div>
+    <button id="musicButton" onclick="initiatePlayback()">🔈</button>
+    
+    <audio id="bgMusic" loop hidden>
+        <source src="./bg.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
 
-<header>
-    <h1 class="hero-text"> </h1>
-    <p class="quote">Baby, you're my love, my forevermore</p>
-</header>
-<p class="love">
-    Love - Abid
-</p>
+    <audio id="popSound" hidden>
+        <source src="pop.mp3" type="audio/mp3">
+    </audio>
 
-<script>
-    const quotes = [
-        "Quote Holding your hands standing near a shore.",
-        "Getting angry at me for silly little things.",
-        "But that makes me love you more...",
-        "I'll hold tight in moonless night",
-        "while your lips shine bright.",
-        "And I'll be on my way",
-        "laying you on my arm",
-        "lips on lips, till morning alarm."
-    ];
+    <div class="click-catcher"></div>
 
-    let currentQuoteIndex = 0;
 
-    function getNextQuote() {
-        const nextQuote = quotes[currentQuoteIndex];
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length; 
-        return nextQuote;
-    }
+    <header>
+        <h1 class="hero-text"> </h1>
+        <p class="quote">Loading quote...</p>
+    </header>
+    <p class="love">
+        Love - Abid
+    </p>
 
-    function updateQuote() {
+    <script>
+        const heroText = document.querySelector('.hero-text');
         const quoteElement = document.querySelector('.quote');
-        const newQuote = getNextQuote();
-        quoteElement.textContent = newQuote;
-        setTimeout(updateQuote, 3000);
-    }
 
 
-    function typeText(element, text) {
-        let index = 0;
-        const intervalId = setInterval(() => {
-            element.textContent += text[index];
-            index++;
-            if (index === text.length) {
-                clearInterval(intervalId);
+        function typeText(element, text) {
+            let index = 0;
+            const intervalId = setInterval(() => {
+                element.textContent += text[index];
+                index++;
+                if (index === text.length) {
+                    clearInterval(intervalId);
+
+                    // Stop font change once text is fully typed
+                    currentFontIndex = fonts.findIndex(font => font.includes('Dancing Script'));
+                }
+            }, 200);
+        }
+
+        const heroTextContent = 'Gia is Love';
+        typeText(heroText, heroTextContent);
+
+        // Shuffle fonts every 1.5 seconds until text is fully typed
+        const fontChangeInterval = setInterval(() => {
+            if (heroText.textContent.length === heroTextContent.length) {
+                clearInterval(fontChangeInterval);
+            } else {
+                changeFont();
             }
-        }, 200);
-    }
-
-    const heroText = document.querySelector('.hero-text');
-    const heroTextContent = 'Gia is Love';
-    typeText(heroText, heroTextContent);
-
-    updateQuote();
-
-    function getRandomEmoji() {
-        const emojiList = ['💜', '❤️', '💙', '💚', '💛', '🧡'];
-        return emojiList[Math.floor(Math.random() * emojiList.length)];
-    }
-
-    function createRain() {
-        const heartCatcher = document.querySelector('.click-catcher');
-
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        
-        const startingPosition = window.innerWidth - 30; 
-        heart.style.left = startingPosition + "px";
-
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-        heart.style.fontSize = Math.random() * 2 + 2 + "rem";
-        heart.innerText = getRandomEmoji();
-
-        heartCatcher.appendChild(heart);
+        }, 1500);
 
 
-        heartCatcher.appendChild(heart);
+        const bgMusic = document.getElementById('bgMusic');
+        const musicButton = document.getElementById('musicButton');
 
-        heart.addEventListener('touchstart', () => {
-        heart.remove();
+        document.addEventListener("DOMContentLoaded", function () {
+            initiatePlayback();
         });
-        
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }
 
-    setInterval(createRain, 220);
-</script>
-</body>
-</html>
+        function initiatePlayback() {
+            bgMusic.play().then(() => {
+                updateMusicButton();
+            }).catch((error) => {
+                console.error("Auto-play prevented: ", error);
+                musicButton.style.display = "inline-block";
+            });
+        }
+
+        function updateMusicButton() {
+            if (bgMusic.muted) {
+                musicButton.textContent = "🔈";
+            } else {
+                musicButton.textContent = "🔊";
+            }
+        }
+
+        musicButton.addEventListener('click', toggleMusic);
+
+        function toggleMusic() {
+            bgMusic.muted = !bgMusic.muted;
+            updateMusicButton();
+        }
+
+
+        const quotes = [
+            "Baby, you're my love, my forevermore",
+            "Holding your hands standing near a shore.",
+            "Getting angry at me for silly little things.",
+            "But that makes me love you more...",
+            "I'll hold tight in moonless night",
+            "while your lips shine bright.",
+            "And I'll be on my way",
+            "laying you on my arm",
+            "lips on lips, till morning alarm."
+        ];
+
+        let currentQuoteIndex = 0;
+
+        function getNextQuote() {
+            const nextQuote = quotes[currentQuoteIndex];
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            return nextQuote;
+        }
+
+        function updateQuote() {
+            const quoteElement = document.querySelector('.quote');
+            const newQuote = getNextQuote();
+            quoteElement.textContent = newQuote;
+            setTimeout(updateQuote, 3000);
+        }
+
+
+        updateQuote();
+        function createRain() {
+            const heartCatcher = document.querySelector('.click-catcher');
+
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+
+            const size = Math.floor(Math.random() * (100 - 40 + 1)) + 40;
+
+            const blur = Math.floor(Math.random() * 7) + 1;
+            heart.style.width = size + "px";
+            heart.style.height = size + "px";
+            heart.style.filter = `blur(${blur}px)`;
+
+            const opacity = Math.random() * 0.4 + 0.6;
+            heart.style.opacity = opacity;
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+            const heartImage = document.createElement("img");
+            heartImage.src = "https://cdn.discordapp.com/attachments/1035231349180747826/1190672860776255598/heart_6.PNG";
+            heartImage.alt = "Heart";
+            heartImage.style.width = "100%";
+            heart.appendChild(heartImage);
+
+            heartCatcher.appendChild(heart);
+
+            heart.addEventListener('click', () => {
+                // Play the pop sound
+                const popSound = document.getElementById('popSound');
+                popSound.play();
+
+                // Add the pop animation
+                setTimeout(() => {
+                    heart.remove();
+                }, 0);
+            });
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+
+
+
+        setInterval(createRain, 160);
+    </script>
+</body
