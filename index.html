@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <link rel="stylesheet" href="emoji-rain.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: fixed;
+            top: -1vh;
+            color: black;
+            font-size: 2rem;
+            transform: translateY(0);
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function createRain() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        heart.style.fontSize = Math.random() * 4.5 + 1.0 + "rem"; // Random font size between 0.5rem and 2rem
+
+        heart.innerText = '💜';
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+
+    setInterval(createRain, 100);
+</script>
+</body>
+</html>
