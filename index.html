@@ -4,30 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="emoji-rain.css">
+    <title>Gia is Love</title>
+    <link rel="icon" href="https://media1.tenor.com/m/VSxlAnMklw0AAAAC/anime-hug-for-you.gif" type="image/gif"> 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-
         body {
-            color: #fff;
+            position: relative;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            margin: 0;
             overflow: hidden;
+            background-image: url('https://media1.tenor.com/m/VSxlAnMklw0AAAAC/anime-hug-for-you.gif');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(13px);
+            background-color: rgba(0, 0, 0, 0.041); 
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .love {
+            margin-bottom: 10px;
+            position: absolute;
+            bottom: 0;
+        }
+
+
+        .hero-text {
+            font-size: 2.7rem;
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            position: relative; 
+            z-index: 2;
+        }
+
+        .quote {
+            font-size: 1rem;
+            margin-top: 10px;
+            color: rgb(0, 0, 0);
+            position: relative;
+            z-index: 2;
         }
 
         .heart {
             position: fixed;
             top: -1vh;
-            color: black;
-            font-size: 2rem;
+            font-size: 3rem;
             transform: translateY(0);
             animation: fall 3s linear forwards;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .click-catcher {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+            pointer-events: none; 
         }
 
         @keyframes fall {
@@ -39,25 +93,95 @@
 </head>
 <body>
 
+<div class="click-catcher"></div>
+
+<header>
+    <h1 class="hero-text"> </h1>
+    <p class="quote">Baby, you're my love, my forevermore</p>
+</header>
+<p class="love">
+    Love - Abid
+</p>
+
 <script>
+    const quotes = [
+        "Quote Holding your hands standing near a shore.",
+        "Getting angry at me for silly little things.",
+        "But that makes me love you more...",
+        "I'll hold tight in moonless night",
+        "while your lips shine bright.",
+        "And I'll be on my way",
+        "laying you on my arm",
+        "lips on lips, till morning alarm."
+    ];
+
+    let currentQuoteIndex = 0;
+
+    function getNextQuote() {
+        const nextQuote = quotes[currentQuoteIndex];
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length; 
+        return nextQuote;
+    }
+
+    function updateQuote() {
+        const quoteElement = document.querySelector('.quote');
+        const newQuote = getNextQuote();
+        quoteElement.textContent = newQuote;
+        setTimeout(updateQuote, 3000);
+    }
+
+
+    function typeText(element, text) {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            element.textContent += text[index];
+            index++;
+            if (index === text.length) {
+                clearInterval(intervalId);
+            }
+        }, 200);
+    }
+
+    const heroText = document.querySelector('.hero-text');
+    const heroTextContent = 'Gia is Love';
+    typeText(heroText, heroTextContent);
+
+    updateQuote();
+
+    function getRandomEmoji() {
+        const emojiList = ['💜', '❤️', '💙', '💚', '💛', '🧡'];
+        return emojiList[Math.floor(Math.random() * emojiList.length)];
+    }
+
     function createRain() {
+        const heartCatcher = document.querySelector('.click-catcher');
+
         const heart = document.createElement("div");
         heart.classList.add("heart");
+        
+        const startingPosition = window.innerWidth - 30; 
+        heart.style.left = startingPosition + "px";
 
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-        heart.style.fontSize = Math.random() * 4.5 + 1.0 + "rem"; // Random font size between 0.5rem and 2rem
+        heart.style.fontSize = Math.random() * 2 + 2 + "rem";
+        heart.innerText = getRandomEmoji();
 
-        heart.innerText = '💜';
+        heartCatcher.appendChild(heart);
 
-        document.body.appendChild(heart);
 
+        heartCatcher.appendChild(heart);
+
+        heart.addEventListener('touchstart', () => {
+        heart.remove();
+        });
+        
         setTimeout(() => {
             heart.remove();
         }, 5000);
     }
 
-    setInterval(createRain, 100);
+    setInterval(createRain, 220);
 </script>
 </body>
 </html>
