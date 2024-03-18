@@ -166,7 +166,7 @@ function createRain() {
     heart.style.animationDuration = Math.random() * 2 + 3 + "s";
 
     const heartImage = document.createElement("img");
-    heartImage.src = "https://cdn.discordapp.com/attachments/1035231349180747826/1190672860776255598/heart_6.PNG?ex=66082b03&is=65f5b603&hm=7f1daa6fafb5e88583053685714f6a10f3a6c45b5a45dc2d077ad81171524d1f&";
+    heartImage.src = "https://cdn.discordapp.com/attachments/1035231349180747826/1190672860776255598/heart_6.PNG?ex=66082b03&is=65f5b603&hm=7f1daa6fafb5e88583053685714f6a10f3a6c45b5a45dc2d077ad81171524d1f& ";
     heartImage.alt = "Heart";
     heartImage.style.width = "100%";
     heart.appendChild(heartImage);
