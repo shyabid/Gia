@@ -166,7 +166,7 @@ function createRain() {
     heart.style.animationDuration = Math.random() * 2 + 3 + "s";
 
     const heartImage = document.createElement("img");
-    heartImage.src = "./assets/heart.gif";
+    heartImage.src = "./assets/heart.png";
     heartImage.alt = "Heart";
     heartImage.style.width = "100%";
     heart.appendChild(heartImage);
